@@ -16,6 +16,10 @@ public class WeaponStore {
     public ArrayList<Weapon> getWeapons() {
         return this.weapons;
     }
+    
+    public Weapon getoneWeapons(int w) {
+        return this.weapons.get(w);
+    }
 
     public void printWeapons() {
         int i = 0;
