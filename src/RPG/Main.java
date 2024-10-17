@@ -25,6 +25,38 @@ public class Main {
         Caracter caracter = new Caracter(name);
         System.out.println(caracter);
         
+        System.out.println("Choose a class: [0] Warrior, [1] Mage, [2] Archer, [3] Druid");
+        String classChoice = scanner.nextLine();
+        Attribute characterAttributes = null;
+
+        // Attribution des attributs par défaut selon la classe choisie
+        switch (classChoice) {
+            case "0":
+                characterAttributes = new Warrior();
+                System.out.println("You chose: Warrior");
+                break;
+            case "1":
+                characterAttributes = new Mage();
+                System.out.println("You chose: Mage");
+                break;
+            case "2":
+                characterAttributes = new Archer();
+                System.out.println("You chose: Archer");
+                break;
+            case "3":
+                characterAttributes = new Druid();
+                System.out.println("You chose: Druid");
+                break;
+            default:
+                System.out.println("Invalid choice.");
+                break;
+        }
+
+        if (characterAttributes != null) {
+            System.out.println("Your character's attributes: " + characterAttributes);
+        }
+        
+        
         store.printWeapons();
         String answershop = "N";
         while (answershop.equals("N")) {

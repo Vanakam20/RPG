@@ -10,9 +10,10 @@ public abstract class Attribute {
     private int magicResist;
     private int criticalChance;
     private int luck;
+    private String classNom;
 
     // Constructeur
-    public Attribute(int strength, int agility, int intelligence, int stamina, int defense, int magicResist, int criticalChance, int luck) {
+    public Attribute(int strength, int agility, int intelligence, int stamina, int defense, int magicResist, int criticalChance, int luck, String classNom) {
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
@@ -21,6 +22,7 @@ public abstract class Attribute {
         this.magicResist = magicResist;
         this.criticalChance = criticalChance;
         this.luck = luck;
+        this.classNom = classNom;
     }
 
     // Getters et Setters
@@ -47,6 +49,10 @@ public abstract class Attribute {
 
     public int getLuck() { return luck; }
     public void setLuck(int luck) { this.luck = luck; }
+    
+    public String getclassNom() { return this.classNom; }
+    public void setclassNom(String classNom) { this.classNom = classNom; }
+
 
     @Override
     public String toString() {
