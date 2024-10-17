@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class Main {
 	public static int w;
+	public static Scanner scanner = new Scanner(System.in);
+	public static Map map = new Map(10, 10);
 
     public static void main(String[] args) throws CloneNotSupportedException {
         /*Axe axe = new Axe();
@@ -19,7 +21,9 @@ public class Main {
             System.out.println(w.asciiArt());
         }*/
         //store.printWeapons();
-        Scanner scanner = new Scanner(System.in);
+
+        
+        
         System.out.println("Choose a name : ");
         String name = scanner.nextLine();
         Caracter caracter = new Caracter(name);
@@ -71,6 +75,18 @@ public class Main {
 		caracter.setWeapon(store.getoneWeapons(w));
         System.out.println("Weapon purchase!");
         
+        String input;
+        do {
+            map.printMap();
+            System.out.println("Move your player (up, down, left, right) or type 'exit' to quit:");
+            input = scanner.nextLine();
+            if (!input.equalsIgnoreCase("exit")) {
+                map.movePlayer(input);
+            }
+        } while (!input.equalsIgnoreCase("exit"));
+
+        System.out.println("Game over!");
+        scanner.close();
         }
     }
 
