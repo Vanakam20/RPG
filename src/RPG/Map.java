@@ -1,5 +1,4 @@
 package RPG;
-import java.util.Random;
 
 public class Map {
 	private char[][] mapGrid;  // Tableau 2D pour la carte
@@ -8,12 +7,14 @@ public class Map {
     private final char PLAYER_SYMBOL = 'P';  // Symbole représentant le joueur
     private final char EMPTY_SPACE = '.';    // Symbole représentant un espace vide
     private final char MONSTER_SYMBOL = '?';
+    private Caracter caracter;
 
-    public Map(int width, int height) {
+    public Map(int width, int height,Caracter c) {
         mapGrid = new char[height][width];
         initializeMap();
         initializeMonster();
         placePlayer();
+        this.caracter = c;
     }
 
     // Initialise la carte avec des espaces vides
@@ -56,35 +57,40 @@ public class Map {
     // Déplace le joueur en fonction de l'entrée de l'utilisateur
     public void movePlayer(String direction) {
         // Efface l'ancienne position
-        mapGrid[playerY][playerX] = EMPTY_SPACE;
+        int newX = playerX;
+        int newY = playerY;
 
         switch (direction.toLowerCase()) {
-            case "up":
-                if (playerY > 0) {
-                    playerY--;  // Monte d'une ligne
-                }
-                break;
-            case "down":
-                if (playerY < mapGrid.length - 1) {
-                    playerY++;  // Descend d'une ligne
-                }
-                break;
-            case "left":
-                if (playerX > 0) {
-                    playerX--;  // Se déplace à gauche
-                }
-                break;
-            case "right":
-                if (playerX < mapGrid[0].length - 1) {
-                    playerX++;  // Se déplace à droite
-                }
-                break;
-            default:
-                System.out.println("Invalid direction! Use 'up', 'down', 'left', or 'right'.");
-                break;
-        }
+        case "up":
+            if (playerY > 0) newY--;  // Monte d'une ligne
+            break;
+        case "down":
+            if (playerY < mapGrid.length - 1) newY++;  // Descend d'une ligne
+            break;
+        case "left":
+            if (playerX > 0) newX--;  // Se déplace à gauche
+            break;
+        case "right":
+            if (playerX < mapGrid[0].length - 1) newX++;  // Se déplace à droite
+            break;
+        default:
+            System.out.println("Invalid direction! Use 'up', 'down', 'left', or 'right'.");
+            return; // Sort de la méthode si la direction est invalide
+    }
 
-        // Met à jour la nouvelle position du joueur
-        mapGrid[playerY][playerX] = PLAYER_SYMBOL;
+        // Vérifie s'il y a un monstre à la nouvelle position
+        if (mapGrid[newY][newX] == MONSTER_SYMBOL) {
+            Encounter encounter = new Encounter(mapGrid, newX, newY); // Crée une instance d'Encounter
+            encounter.handleEncounter(this.caracter); // Gère la rencontre avec le monstre
+        } else {
+            // Efface l'ancienne position
+            mapGrid[playerY][playerX] = EMPTY_SPACE;
+            // Met à jour la position du joueur
+            playerX = newX;
+            playerY = newY;
+            mapGrid[playerY][playerX] = PLAYER_SYMBOL;
+        }
     }
 }
+
+

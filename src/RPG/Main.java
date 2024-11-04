@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class Main {
 	public static int w;
 	public static Scanner scanner = new Scanner(System.in);
-	public static Map map = new Map(10, 10);
 
     public static void main(String[] args) throws CloneNotSupportedException {
         /*Axe axe = new Axe();
@@ -28,7 +27,7 @@ public class Main {
         String name = scanner.nextLine();
         Caracter caracter = new Caracter(name);
         System.out.println(caracter);
-        
+        Map map = new Map(10, 10,caracter);
         System.out.println("Choose a class: [0] Warrior, [1] Mage, [2] Archer, [3] Druid");
         String classChoice = scanner.nextLine();
         Attribute characterAttributes = null;
@@ -61,6 +60,7 @@ public class Main {
         }
         
         
+        caracter.setAttribute(characterAttributes);
         store.printWeapons();
         String answershop = "N";
         while (answershop.equals("N")) {
